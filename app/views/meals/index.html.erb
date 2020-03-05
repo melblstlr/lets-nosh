@@ -1,0 +1,150 @@
+mem<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      List of all meals
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Add a new meal
+    </h2>
+
+    <form action="/insert_meal" method="post">
+      <div class="form-group">
+        <label for="meal_name_box">
+          Meal name
+        </label>
+
+        <input type="text" id="meal_name_box" name="query_meal_name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="restaurant_id_box">
+          Restaurant
+        </label>
+
+        <input type="text" id="restaurant_id_box" name="query_restaurant_id" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="creator_id_box">
+          Creator
+        </label>
+
+        <input type="text" id="creator_id_box" name="query_creator_id" class="form-control">
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Create meal
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Meal name
+        </th>
+
+        <th>
+          Image
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Restaurant
+        </th>
+
+        <th>
+          Creator
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @meals.each do |meal| %>
+      <tr>
+        <td>
+          <%= meal.id %>
+        </td>
+
+        <td>
+          <%= meal.meal_name %>
+        </td>
+
+        <td>
+          <%= meal.image %>
+        </td>
+
+        <td>
+          <%= meal.description %>
+        </td>
+
+        <td>
+          <%= meal.restaurant_id %>
+        </td>
+
+        <td>
+          <%= meal.creator_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(meal.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(meal.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/meals/<%= meal.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

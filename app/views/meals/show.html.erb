@@ -1,0 +1,113 @@
+
+<!-- Edit Meal Form -->
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Edit meal
+    </h2>
+
+    <form action="/modify_meal/<%= @meal.id %>"  method="post" >
+      <div class="form-group">
+        <label for="meal_name_box">
+          Meal name
+        </label>
+
+        <input type="text" id="meal_name_box" name="query_meal_name" class="form-control" value="<%= @meal.meal_name %>">
+      </div>
+
+      <div class="form-group">
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image" class="form-control" value="<%= @meal.image %>">
+      </div>
+
+      <div class="form-group">
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" class="form-control" value="<%= @meal.description %>">
+      </div>
+
+      <div class="form-group">
+        <label for="restaurant_id_box">
+          Restaurant
+        </label>
+
+        <input type="text" id="restaurant_id_box" name="query_restaurant_id" class="form-control" value="<%= @meal.restaurant_id %>">
+      </div>
+
+      <div class="form-group">
+        <label for="creator_id_box">
+          Creator
+        </label>
+
+        <input type="text" id="creator_id_box" name="query_creator_id" class="form-control" value="<%= @meal.creator_id %>">
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Update meal
+      </button>
+    </form>
+  </div>
+</div>
+
+
+<!-- meal details form -->
+
+    <dl>
+      <dt>
+        Meal name
+      </dt>
+      <dd>
+        <%= @meal.meal_name %>
+      </dd>
+
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <%= @meal.image %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @meal.description %>
+      </dd>
+
+      <dt>
+        Restaurant
+      </dt>
+      <dd>
+        <%= @meal.restaurant_id %>
+      </dd>
+
+      <dt>
+        Creator
+      </dt>
+      <dd>
+        <%= @meal.creator_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@meal.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@meal.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+

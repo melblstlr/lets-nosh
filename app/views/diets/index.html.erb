@@ -1,0 +1,50 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      Diets
+    </h1>
+  </div>
+</div>
+
+<hr>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Diet
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @diets.each do |diet| %>
+      <tr>
+
+        <td>
+          <%= diet.diet_name %>
+        </td>
+
+        <td>
+          <%= diet.diet_description %>
+        </td>
+
+        <td>
+          <a href="<%=diet.website_link %>">
+            More details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+
+    </table>
+  </div>
+</div>
+
+<hr>

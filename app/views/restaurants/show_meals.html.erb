@@ -1,0 +1,87 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      <%= @restaurant.restaurant_name %>
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/restaurants" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+  
+      <div class="col">
+        <a href="/delete_restaurant/<%= @restaurant.id %>" class="btn btn-block btn-outline-secondary">
+          Delete restaurant
+        </a>
+      </div>
+    
+    </div>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Meal name
+        </th>
+
+        <th>
+          Image
+        </th>
+
+        <th>
+          Diets
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Uploaded by
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @restaurant.meal.each do |dish| %>
+      <tr>
+
+        <td>
+          <%= dish.meal_name %>
+        </td>
+
+        <td>
+          <%= dish.image %>
+        </td>
+
+        <td>
+          <%= dish.diet.pluck(:diet_name).to_sentence %>
+        </td>
+
+        <td>
+          <%= dish.description %>
+        </td>
+
+        <td>
+          <%= dish.creator.username %>
+        </td>
+
+        <td>
+          <a href="/meals/<%= dish.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+
+<hr>

@@ -1,0 +1,58 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      Restaurants
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Address
+        </th>
+
+        <th>
+          Diets
+        </th>
+      </tr>
+
+      <% @restaurants.each do |restaurant| %>
+      <tr>
+
+        <td>
+          <%= restaurant.restaurant_name %>
+        </td>
+
+        <td>
+          <%= restaurant.address %>
+        </td>
+
+        <td>
+          <%= restaurant.diet.pluck(:diet_name).to_sentence%>
+        </td>
+
+        <td>
+          <a href="/restaurants/<%= restaurant.id %>">
+            See meals
+          </a>
+        </td>
+      </tr>
+      <% end %>
+
+    </table>
+  </div>
+</div>
+
+<hr>

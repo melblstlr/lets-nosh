@@ -1,0 +1,183 @@
+
+
+<!-- delete meal form -->
+
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Meal #<%= @meal.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/meals" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_meal/<%= @meal.id %>" class="btn btn-block btn-outline-secondary">
+          Delete meal
+        </a>
+      </div>
+    </div>
+
+
+<!-- diet form -->
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Add a new diet
+    </h2>
+
+    <form action="/insert_diet" method="post">
+      <div class="form-group">
+        <label for="diet_name_box">
+          Diet name
+        </label>
+
+        <input type="text" id="diet_name_box" name="query_diet_name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="diet_description_box">
+          Diet description
+        </label>
+
+        <input type="text" id="diet_description_box" name="query_diet_description" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="website_link_box">
+          Website link
+        </label>
+
+        <input type="text" id="website_link_box" name="query_website_link" class="form-control">
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Create diet
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Diet name
+        </th>
+
+        <th>
+          Diet description
+        </th>
+
+        <th>
+          Website link
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @diets.each do |diet| %>
+      <tr>
+        <td>
+          <%= diet.id %>
+        </td>
+
+        <td>
+          <%= diet.diet_name %>
+        </td>
+
+        <td>
+          <%= diet.diet_description %>
+        </td>
+
+        <td>
+          <%= diet.website_link %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(diet.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(diet.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/diets/<%= diet.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+<!-- restaurant form -->
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Add a new restaurant
+    </h2>
+
+    <form action="/insert_restaurant" method="post">
+      <div class="form-group">
+        <label for="restaurant_name_box">
+          Restaurant name
+        </label>
+
+        <input type="text" id="restaurant_name_box" name="query_restaurant_name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="address_box">
+          Address
+        </label>
+
+        <input type="text" id="address_box" name="query_address" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="image_box">
+          Image
+        </label>
+
+        <input type="text" id="image_box" name="query_image" class="form-control">
+      </div>
+
+      <div class="custom-control custom-checkbox mb-3">
+        <input type="checkbox" class="custom-control-input" id="chain_box" name="query_chain" value="1">
+
+        <label class="custom-control-label" for="chain_box">Chain</label>
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Create restaurant
+      </button>
+    </form>
+  </div>
+</div>
