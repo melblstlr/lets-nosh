@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  get("/", {:controller => "application", :action => "homepage"})
 
   # Routes for the Dietary guidance resource:
 
@@ -58,9 +59,10 @@ Rails.application.routes.draw do
           
   # READ
   get("/restaurants", { :controller => "restaurants", :action => "index" })
-  
   get("/restaurants/:path_id", { :controller => "restaurants", :action => "show" })
-  
+  get("/find_restaurant", {:controller => "restaurants", :action => "search"})
+
+
   # UPDATE
   
   post("/modify_restaurant/:path_id", { :controller => "restaurants", :action => "update" })

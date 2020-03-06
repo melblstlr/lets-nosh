@@ -1,7 +1,36 @@
 class RestaurantsController < ApplicationController
   def index
-    @restaurants = Restaurant.all.order({ :created_at => :desc })
 
+    @diets = []
+    Diet.pluck(:diet_name).each do |diet|
+      d = params.fetch("#{diet}", false)
+      if d != false
+        @diets.push(diet)
+      end
+    end
+
+    if @diets == nil
+      @restaurants = Restaurant.all.order({ :restaurant_name => :desc })
+    else 
+      compliant_restaurants = []
+      Restaurant.all.each do |restaurant|
+      rd = restaurant.diet.pluck(:diet_name)
+      compliance = []
+
+         
+        @diets.each do |search|
+          if rd.include?(search)
+            compliance.push(true)
+          end
+        end
+
+        if compliance.count == @diets.count
+          compliant_restaurants.push(restaurant.id)
+        end
+        
+      end
+      @restaurants = Restaurant.where({:id => compliant_restaurants}).order({ :restaurant_name => :desc })
+    end
     render({ :template => "restaurants/index.html.erb" })
   end
 
@@ -52,4 +81,6 @@ class RestaurantsController < ApplicationController
 
     redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
   end
+
+
 end

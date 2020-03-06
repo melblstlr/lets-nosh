@@ -8,7 +8,35 @@
 
 <hr>
 
+  <div>
+    <form action="/restaurants">
+      
+        <label for="diet_check">Select your dietary needs</label>
+        <div>
+          <%a=1%>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=diet%>" />
+            <%=diet%>
+            <%a=a+1%>
+          <%end%>
+        </div>
+ 
+
+      <button>
+        Update restaurant list
+      </button>
+    </form>
+  </div>
+
 <hr>
+
+<div>
+<%if @diets == nil%>
+  Displaying restaurants that have meals that are <%=@diets.to_sentence%>
+<%else%>
+  Displaying all restaurants
+<%end%>
+</div>
 
 <div class="row mb-3">
   <div class="col-md-12">

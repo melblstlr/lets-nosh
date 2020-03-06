@@ -1,0 +1,21 @@
+<h1> Homepage </h1>
+
+  <div>
+    <form action="/restaurants">
+      <div>
+        <label for="diet_check">Select your dietary needs</label>
+        <div>
+          <%a=1%>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=diet%>" />
+            <%=diet%>
+            <%a=a+1%>
+          <%end%>
+        </div>
+      </div>
+
+      <button>
+        Find restaurants
+      </button>
+    </form>
+  </div>
