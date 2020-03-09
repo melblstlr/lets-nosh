@@ -1,3 +1,4 @@
+
 <div class="row mb-3">
   <div class="col-md-12">
     <h1>
@@ -8,22 +9,32 @@
 
 <hr>
 
-  <div>
-    <form action="/restaurants">
-      
+ <div>
+    <form action="/find_restaurant" method = "post">
+      <div>
         <label for="diet_check">Select your dietary needs</label>
         <div>
           <%a=1%>
           <%Diet.pluck(:diet_name).each do |diet|%>
-            <input id = "diet_check" type="checkbox" name="<%=diet%>" />
+            <input id = "diet_check" type="checkbox" name="<%=diet%>" <%= "checked" if @diets.include?(diet) %> />
             <%=diet%>
             <%a=a+1%>
           <%end%>
         </div>
- 
+      </div>
 
       <button>
-        Update restaurant list
+        Find restaurants
+      </button>
+    </form>
+  </div>
+
+  <hr>
+
+  <div>
+    <form action="/restaurants">
+      <button>
+        Reset list
       </button>
     </form>
   </div>
@@ -31,12 +42,21 @@
 <hr>
 
 <div>
-<%if @diets == nil%>
+<%if @diets != nil%>
   Displaying restaurants that have meals that are <%=@diets.to_sentence%>
 <%else%>
   Displaying all restaurants
 <%end%>
 </div>
+
+
+
+
+
+
+
+
+
 
 <div class="row mb-3">
   <div class="col-md-12">

@@ -1,36 +1,9 @@
 class RestaurantsController < ApplicationController
+  
   def index
+      @q = Restaurant.ransack(params[:q])
+      @restaurants = @q.result
 
-    @diets = []
-    Diet.pluck(:diet_name).each do |diet|
-      d = params.fetch("#{diet}", false)
-      if d != false
-        @diets.push(diet)
-      end
-    end
-
-    if @diets == nil
-      @restaurants = Restaurant.all.order({ :restaurant_name => :desc })
-    else 
-      compliant_restaurants = []
-      Restaurant.all.each do |restaurant|
-      rd = restaurant.diet.pluck(:diet_name)
-      compliance = []
-
-         
-        @diets.each do |search|
-          if rd.include?(search)
-            compliance.push(true)
-          end
-        end
-
-        if compliance.count == @diets.count
-          compliant_restaurants.push(restaurant.id)
-        end
-        
-      end
-      @restaurants = Restaurant.where({:id => compliant_restaurants}).order({ :restaurant_name => :desc })
-    end
     render({ :template => "restaurants/index.html.erb" })
   end
 
@@ -73,6 +46,12 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def select
+    name = params.fetch("query_restaurant_name")
+    @restaurant = Restaurant.where({:restaurant_name => name}).at(0)
+    redirect_to("/add_meal/#{@restaurant.id}")
+  end
+
   def destroy
     the_id = params.fetch("path_id")
     @restaurant = Restaurant.where({ :id => the_id }).at(0)
@@ -82,5 +61,40 @@ class RestaurantsController < ApplicationController
     redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
   end
 
+  def search
+    
+    @diets = []
+    Diet.pluck(:diet_name).each do |diet|
+      d = params.fetch("#{diet}", false)
+      if d != false
+        @diets.push(diet)
+      end
+    end
 
+    if @diets == nil
+      @restaurants = Restaurant.all.order({ :restaurant_name => :desc })
+    else 
+      compliant_restaurants = []
+
+      Restaurant.all.each do |restaurant|
+      rd = restaurant.diet.pluck(:diet_name)
+      compliance = []
+         
+        @diets.each do |search|
+          if rd.include?(search)
+            compliance.push(true)
+          end
+        end
+
+        if compliance.count == @diets.count
+          compliant_restaurants.push(restaurant.id)
+        end
+        
+      end
+      @restaurants = Restaurant.where({:id => compliant_restaurants}).order({ :restaurant_name => :desc })
+
+    end
+
+    render({ :template => "restaurants/index.html.erb" })
+  end
 end

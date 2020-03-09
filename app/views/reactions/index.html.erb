@@ -1,0 +1,118 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1>
+      List of all reactions
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Add a new reaction
+    </h2>
+
+    <form action="/insert_reaction" method="post">
+      <div class="form-group">
+        <label for="reaction_box">
+          Reaction
+        </label>
+
+        <input type="text" id="reaction_box" name="query_reaction" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="meal_id_box">
+          Meal
+        </label>
+
+        <input type="text" id="meal_id_box" name="query_meal_id" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" class="form-control">
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Create reaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div class="row mb-3">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Reaction
+        </th>
+
+        <th>
+          Meal
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @reactions.each do |reaction| %>
+      <tr>
+        <td>
+          <%= reaction.id %>
+        </td>
+
+        <td>
+          <%= reaction.reaction %>
+        </td>
+
+        <td>
+          <%= reaction.meal_id %>
+        </td>
+
+        <td>
+          <%= reaction.user_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(reaction.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(reaction.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/reactions/<%= reaction.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

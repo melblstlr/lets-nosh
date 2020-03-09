@@ -1,0 +1,10 @@
+=> [32m#<Meal:0x0000556f4c1de9d8[0m
+ id: [1;34m601[0m,
+ meal_name: [31m[1;31m"[0m[31mBunny Chow[1;31m"[0m[31m[0m,
+ image: [1;36mnil[0m,
+ description:
+  [31m[1;31m"[0m[31mThree egg whites with spinach, mushrooms, caramelized onions, tomatoes and low-fat feta cheese. With herbed quinoa, and your choice of rye or whole-grain toast.[1;31m"[0m[31m[0m,
+ restaurant_id: [1;34m122[0m,
+ creator_id: [1;34m176[0m,
+ created_at: [1;34;4mSat[0m, [1;34m07[0m [1;34;4mMar[0m [1;34m2020[0m [1;34m17[0m:[1;34m59[0m:[1;34m59[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m,
+ updated_at: [1;34;4mSat[0m, [1;34m07[0m [1;34;4mMar[0m [1;34m2020[0m [1;34m17[0m:[1;34m59[0m:[1;34m59[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m[32m>[0m

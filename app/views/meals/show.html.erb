@@ -1,6 +1,7 @@
 
 <!-- Edit Meal Form -->
 
+<%if @meal.creator == @current_user %>
 <div class="row mb-3">
   <div class="col-md-8 offset-md-2">
     <h2>
@@ -40,13 +41,7 @@
         <input type="text" id="restaurant_id_box" name="query_restaurant_id" class="form-control" value="<%= @meal.restaurant_id %>">
       </div>
 
-      <div class="form-group">
-        <label for="creator_id_box">
-          Creator
-        </label>
-
-        <input type="text" id="creator_id_box" name="query_creator_id" class="form-control" value="<%= @meal.creator_id %>">
-      </div>
+        <input type="hidden" id="creator_id_box" name="query_creator_id" class="form-control" value="<%= @meal.creator_id %>">
 
       <button class="btn btn-block btn-outline-secondary">
         Update meal
@@ -54,6 +49,7 @@
     </form>
   </div>
 </div>
+<%end%>
 
 
 <!-- meal details form -->

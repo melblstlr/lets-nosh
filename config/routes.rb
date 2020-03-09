@@ -1,6 +1,25 @@
 Rails.application.routes.draw do
 
 
+  # Routes for the Reaction resource:
+
+  # CREATE
+  post("/insert_reaction", { :controller => "reactions", :action => "create" })
+          
+  # READ
+  get("/reactions", { :controller => "reactions", :action => "index" })
+  
+  get("/reactions/:path_id", { :controller => "reactions", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_reaction/:path_id", { :controller => "reactions", :action => "update" })
+  
+  # DELETE
+  get("/delete_reaction/:path_id", { :controller => "reactions", :action => "destroy" })
+
+  #------------------------------
+
   get("/", {:controller => "application", :action => "homepage"})
 
   # Routes for the Dietary guidance resource:
@@ -38,15 +57,18 @@ Rails.application.routes.draw do
 
   # CREATE
   post("/insert_meal", { :controller => "meals", :action => "create" })
-          
+  get("/add_meal",{:controller => "meals", :action => "add"})
+  get("/add_meal/:restaurant_id", { :controller => "meals", :action => "add_from_restaurant" })
+
   # READ
+  get("/meals", {:controller => "meals", :action => "index"})
   get("/meals/:meal_id", { :controller => "meals", :action => "show" })
-  
+  post("/find_meal", {:controller => "meals", :action => "search"})
+
   
   # UPDATE
-  
   post("/modify_meal/:path_id", { :controller => "meals", :action => "update" })
-  
+
   # DELETE
   get("/delete_meal/:path_id", { :controller => "meals", :action => "destroy" })
 
@@ -60,11 +82,10 @@ Rails.application.routes.draw do
   # READ
   get("/restaurants", { :controller => "restaurants", :action => "index" })
   get("/restaurants/:path_id", { :controller => "restaurants", :action => "show" })
-  get("/find_restaurant", {:controller => "restaurants", :action => "search"})
-
+  post("/find_restaurant", {:controller => "restaurants", :action => "search"})
+  post("/select_restaurant", {:controller => "restaurants", :action =>"select"})
 
   # UPDATE
-  
   post("/modify_restaurant/:path_id", { :controller => "restaurants", :action => "update" })
   
   # DELETE

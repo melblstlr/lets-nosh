@@ -1,7 +1,7 @@
 <h1> Homepage </h1>
 
   <div>
-    <form action="/restaurants">
+    <form action="/find_restaurant" method = "post">
       <div>
         <label for="diet_check">Select your dietary needs</label>
         <div>
@@ -14,8 +14,19 @@
         </div>
       </div>
 
-      <button>
+      <button class="btn btn-block btn-outline-secondary">
         Find restaurants
       </button>
     </form>
   </div>
+
+<hr>
+
+  <p> Do you have a favorite meal you'd like to share? </p>
+
+
+      <div class="col">
+        <a href="/add_meal" class="btn btn-block btn-outline-secondary">
+          Add your favorite meal
+        </a>
+      </div>

@@ -125,8 +125,16 @@ namespace(:dev) do
       d.meal_id = Meal.pluck(:id).sample
    
       d.save
-      p d.errors.full_messages
-      p "dg"
+      # p d.errors.full_messages
+      # p "dg"
+    end
+
+    200.times do
+      r= Reaction.new
+      r.user_id = User.pluck(:id).sample
+      r.meal_id = Meal.pluck(:id).sample
+      r.reaction = ["like","dislike"].sample
+      r.save
     end
 
   end

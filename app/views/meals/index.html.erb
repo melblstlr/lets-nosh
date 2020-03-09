@@ -1,75 +1,49 @@
-mem<div class="row mb-3">
+<div class="row mb-3">
   <div class="col-md-12">
     <h1>
-      List of all meals
+      Meals
     </h1>
   </div>
 </div>
 
 <hr>
 
-<div class="row mb-3">
-  <div class="col-md-8 offset-md-2">
-    <h2>
-      Add a new meal
-    </h2>
-
-    <form action="/insert_meal" method="post">
-      <div class="form-group">
-        <label for="meal_name_box">
-          Meal name
-        </label>
-
-        <input type="text" id="meal_name_box" name="query_meal_name" class="form-control">
+ <div>
+    <form action="/find_meal" method = "post">
+      <div>
+        <label for="diet_check">Select your dietary needs</label>
+        <div>
+          <%a=1%>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=diet%>" <%= "checked" if @diets.include?(diet) %> />
+            <%=diet%>
+            <%a=a+1%>
+          <%end%>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="query_image" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="description_box">
-          Description
-        </label>
-
-        <input type="text" id="description_box" name="query_description" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="restaurant_id_box">
-          Restaurant
-        </label>
-
-        <input type="text" id="restaurant_id_box" name="query_restaurant_id" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="creator_id_box">
-          Creator
-        </label>
-
-        <input type="text" id="creator_id_box" name="query_creator_id" class="form-control">
-      </div>
-
-      <button class="btn btn-block btn-outline-secondary">
-        Create meal
+      <button>
+        Find meals
       </button>
     </form>
   </div>
-</div>
 
 <hr>
+
+  <div>
+    <form action="/meals">
+      <button>
+        Reset list
+      </button>
+    </form>
+  </div>
+
+<hr>
+
 <div class="row mb-3">
   <div class="col-md-12">
     <table class="table">
       <tr>
-        <th>
-          ID
-        </th>
 
         <th>
           Meal name
@@ -89,14 +63,6 @@ mem<div class="row mb-3">
 
         <th>
           Creator
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
         </th>
 
         <th>
@@ -105,9 +71,6 @@ mem<div class="row mb-3">
 
       <% @meals.each do |meal| %>
       <tr>
-        <td>
-          <%= meal.id %>
-        </td>
 
         <td>
           <%= meal.meal_name %>
@@ -122,18 +85,11 @@ mem<div class="row mb-3">
         </td>
 
         <td>
-          <%= meal.restaurant_id %>
-        </td>
+          <%= meal.restaurant.restaurant_name %>
+        </td>        
 
         <td>
-          <%= meal.creator_id %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(meal.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(meal.updated_at) %> ago
+          <%= meal.creator.username %>
         </td>
 
         <td>

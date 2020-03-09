@@ -10,11 +10,10 @@
           Go back
         </a>
       </div>
-
   
       <div class="col">
-        <a href="/delete_restaurant/<%= @restaurant.id %>" class="btn btn-block btn-outline-secondary">
-          Delete restaurant
+        <a href="/add_meal/<%=@restaurant.id%>" class="btn btn-block btn-outline-secondary">
+          Add meal
         </a>
       </div>
     
@@ -46,6 +45,11 @@
         </th>
 
         <th>
+          Likes
+        </th>
+
+        <th>
+          Dislikes
         </th>
       </tr>
 
@@ -73,10 +77,14 @@
         </td>
 
         <td>
-          <a href="/meals/<%= dish.id %>">
-            Show details
-          </a>
+          <%= dish.reactions.where({:reaction => "like"}).count %>
         </td>
+
+        <td>
+          <%= dish.reactions.where({:reaction => "dislike"}).count %>
+        </td>
+
+
       </tr>
       <% end %>
     </table>

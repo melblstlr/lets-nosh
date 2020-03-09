@@ -1,0 +1,101 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      Reaction #<%= @reaction.id %> details
+    </h1>
+
+    <div class="row mb-3">
+      <div class="col">
+        <a href="/reactions" class="btn btn-block btn-outline-secondary">
+          Go back
+        </a>
+      </div>
+
+      <div class="col">
+        <a href="/delete_reaction/<%= @reaction.id %>" class="btn btn-block btn-outline-secondary">
+          Delete reaction
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Reaction
+      </dt>
+      <dd>
+        <%= @reaction.reaction %>
+      </dd>
+
+      <dt>
+        Meal
+      </dt>
+      <dd>
+        <%= @reaction.meal_id %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @reaction.user_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@reaction.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@reaction.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h2>
+      Edit reaction
+    </h2>
+
+    <form action="/modify_reaction/<%= @reaction.id %>"  method="post" >
+      <div class="form-group">
+        <label for="reaction_box">
+          Reaction
+        </label>
+
+        <input type="text" id="reaction_box" name="query_reaction" class="form-control" value="<%= @reaction.reaction %>">
+      </div>
+
+      <div class="form-group">
+        <label for="meal_id_box">
+          Meal
+        </label>
+
+        <input type="text" id="meal_id_box" name="query_meal_id" class="form-control" value="<%= @reaction.meal_id %>">
+      </div>
+
+      <div class="form-group">
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" class="form-control" value="<%= @reaction.user_id %>">
+      </div>
+
+      <button class="btn btn-block btn-outline-secondary">
+        Update reaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
