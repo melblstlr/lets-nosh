@@ -12,17 +12,31 @@ class ReactionsController < ApplicationController
     render({ :template => "reactions/show.html.erb" })
   end
 
-  def create
+  def create_like
     @reaction = Reaction.new
-    @reaction.reaction = params.fetch("query_reaction")
+    @reaction.reaction = "like"
     @reaction.meal_id = params.fetch("query_meal_id")
-    @reaction.user_id = params.fetch("query_user_id")
+    @reaction.user_id = @current_user.id
 
     if @reaction.valid?
       @reaction.save
-      redirect_to("/reactions", { :notice => "Reaction created successfully." })
+      redirect_to("//meals/#{@reaction.meal_id}", { :notice => "Reaction created successfully." })
     else
-      redirect_to("/reactions", { :notice => "Reaction failed to create successfully." })
+      redirect_to("//meals/#{@reaction.meal_id}", { :notice => "Reaction failed to create successfully." })
+    end
+  end
+
+  def create_dislike
+    @reaction = Reaction.new
+    @reaction.reaction = "dislike"
+    @reaction.meal_id = params.fetch("query_meal_id")
+    @reaction.user_id = @current_user.id
+
+    if @reaction.valid?
+      @reaction.save
+      redirect_to("/meals/#{@reaction.meal_id}", { :notice => "Reaction created successfully." })
+    else
+      redirect_to("/meals/#{@reaction.meal_id}", { :notice => "Reaction failed to create successfully." })
     end
   end
 
@@ -48,6 +62,6 @@ class ReactionsController < ApplicationController
 
     @reaction.destroy
 
-    redirect_to("/reactions", { :notice => "Reaction deleted successfully."} )
+    redirect_to("/user_profile", { :notice => "Reaction deleted successfully."} )
   end
 end

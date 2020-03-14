@@ -24,4 +24,7 @@ end
 
 
   has_many :meals, :dependent => :destroy
+  has_many :dietary_guidances, :through => :meals
+  has_many :diets, :through => :dietary_guidances
+
 end

@@ -36,3 +36,35 @@
     </div> <!-- .navbar-collapse -->
   </div> <!-- .container -->
 </nav>
+
+<!-- old search>
+
+ <div>
+    <form action="/find_restaurant" method = "post">
+      <div>
+        <label for="diet_check">Select your dietary needs</label>
+        <div>
+          <%a=1%>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=#diet%>" <%=# "checked" if @diets.include?(diet) %> />
+            <%=diet%>
+            <%a=a+1%>
+          <%end%>
+        </div>
+      </div>
+
+      <button>
+        Find restaurants
+      </button>
+    </form>
+  </div>
+
+  < old search -->
+
+    <div>
+    <form action="/restaurants">
+      <button>
+        Reset list
+      </button>
+    </form>
+  </div>

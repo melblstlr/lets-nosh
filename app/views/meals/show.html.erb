@@ -79,30 +79,50 @@
       <dt>
         Restaurant
       </dt>
+
       <dd>
-        <%= @meal.restaurant_id %>
+        <a href = "../restaurants/<%=@meal.restaurant_id%>"><%= @meal.restaurant.restaurant_name %></a>      
       </dd>
 
       <dt>
         Creator
       </dt>
       <dd>
-        <%= @meal.creator_id %>
+        <%= @meal.creator.username %>
       </dd>
 
       <dt>
-        Created at
+        Likes
       </dt>
       <dd>
-        <%= time_ago_in_words(@meal.created_at) %> ago
+        <%= @meal.likes.count %>
       </dd>
+      
+    <form action="/insert_like"  method="post" >
+    
+      <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
+
+      <button class="btn btn-block btn-outline-secondary">
+        It was great!
+      </button>
+    </form>
 
       <dt>
-        Updated at
+        Dislikes
       </dt>
       <dd>
-        <%= time_ago_in_words(@meal.updated_at) %> ago
+        <%= @meal.dislikes.count%>
       </dd>
+      
+      <form action="/insert_dislike"  method="post" >
+    
+      <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
+
+      <button class="btn btn-block btn-outline-secondary">
+        Not a fan
+      </button>
+    </form>
+
     </dl>
   </div>
 </div>

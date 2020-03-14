@@ -1,7 +1,8 @@
 class MealsController < ApplicationController
   def index
-    @meals = Meal.all.order({ :meal_name => :desc })
-    @diets = []
+    @q = Meal.ransack(params[:q])
+    @meals = @q.result(:distinct => true).includes(:restaurant, :dietary_guidances, :diets)
+
     render({ :template => "meals/index.html.erb" })
   end
 
@@ -22,7 +23,7 @@ class MealsController < ApplicationController
 
     if @meal.valid?
       @meal.save
-      redirect_to("/restaurant/#{@meal.restaurant_id}", { :notice => "Meal created successfully." })
+      redirect_to("/restaurants/#{@meal.restaurant_id}", { :notice => "Meal created successfully." })
     else
       redirect_to("/", { :notice => "Meal failed to create successfully." })
     end
@@ -31,13 +32,13 @@ class MealsController < ApplicationController
   def add
     @restaurant == nil
     
-    render({:template => "users/add_new_meal.html.erb"})
+    render({:template => "meals/add_new_meal.html.erb"})
   end
 
   def add_from_restaurant
     @restaurant = Restaurant.where({:id => params.fetch("restaurant_id")}).at(0)
 
-    render({:template => "users/add_new_meal.html.erb"})
+    render({:template => "meals/add_new_meal.html.erb"})
   end
 
   def update
@@ -67,42 +68,4 @@ class MealsController < ApplicationController
     redirect_to("/meals", { :notice => "Meal deleted successfully."} )
   end
 
-  def search
-    
-    @diets = []
-    Diet.pluck(:diet_name).each do |diet|
-      d = params.fetch("#{diet}", false)
-      if d != false
-        @diets.push(diet)
-      end
-    end
-
-    if @diets == nil
-      @meals = Meal.all.order({ :meal_name => :desc })
-    else 
-      compliant_meals = []
-
-      Meal.all.each do |meal|
-      md = meal.diet.pluck(:diet_name)
-      compliance = []
-         
-        @diets.each do |search|
-          if md.include?(search)
-            compliance.push(true)
-          end
-        end
-
-        if compliance.count == @diets.count
-          compliant_meals.push(meal.id)
-        end
-        
-      end
-      @meals = Meal.where({:id => compliant_meals}).order({ :restaurant_name => :desc })
-
-    end
-
-    
-    render({ :template => "meals/index.html.erb" })
-  end
-  
 end

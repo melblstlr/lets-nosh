@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
   end
 
   def homepage
+      @q = Restaurant.ransack(params[:q])
+      @restaurants = @q.result(:distinct => true).includes(:meals, :dietary_guidances, :diets)
+
     render({:template => "index.html.erb"})
   end
 

@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   
   def index
       @q = Restaurant.ransack(params[:q])
-      @restaurants = @q.result
+      @restaurants = @q.result(:distinct => true).includes(:meals, :dietary_guidances, :diets)
 
     render({ :template => "restaurants/index.html.erb" })
   end
@@ -57,44 +57,11 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.where({ :id => the_id }).at(0)
 
     @restaurant.destroy
-
     redirect_to("/restaurants", { :notice => "Restaurant deleted successfully."} )
   end
 
-  def search
-    
-    @diets = []
-    Diet.pluck(:diet_name).each do |diet|
-      d = params.fetch("#{diet}", false)
-      if d != false
-        @diets.push(diet)
-      end
-    end
-
-    if @diets == nil
-      @restaurants = Restaurant.all.order({ :restaurant_name => :desc })
-    else 
-      compliant_restaurants = []
-
-      Restaurant.all.each do |restaurant|
-      rd = restaurant.diet.pluck(:diet_name)
-      compliance = []
-         
-        @diets.each do |search|
-          if rd.include?(search)
-            compliance.push(true)
-          end
-        end
-
-        if compliance.count == @diets.count
-          compliant_restaurants.push(restaurant.id)
-        end
-        
-      end
-      @restaurants = Restaurant.where({:id => compliant_restaurants}).order({ :restaurant_name => :desc })
-
-    end
-
-    render({ :template => "restaurants/index.html.erb" })
+  def add
+    render({:template => "/restaurants/add_new_restaurant.html.erb"})
   end
+
 end

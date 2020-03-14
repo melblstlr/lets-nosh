@@ -1,40 +1,108 @@
-<div >
+<table class = "table">
+<td>
   <h5>
-    Edit User Account
+    Your Liked Meals
   </h5>
 
-  <div>
-    <form action="/modify_user" method="post">
-      <div>
-        <label for="email_box">Email</label>
-        <input id="email_box" name="query_email" value="<%= @current_user.email %>">
-      </div>
-      <div>
-        <label for="username_box">Username</label>
-        <input id="username_box" name="query_username" value="<%= @current_user.username %>">
-      </div>
-      <div>
-        <label for="first_name_box">First name</label>
-        <input id="first_name_box" name="query_first_name" value="<%= @current_user.first_name %>">
-      </div>
-      <div>
-        <label for="last_name_box">Last name</label>
-        <input id="last_name_box" name="query_last_name" value="<%= @current_user.last_name %>">
-      </div>
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <table class="table">
+        <tr>
 
-      <div>
-        <label for="password_box">Password</label>
-        <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
-      </div>
-    
-      <div>
-        <label for="password_confirmation_box">Password Confirmation</label>
-        <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
-      </div>
+          <th>
+            Meal name
+          </th>
 
-      <button>
-        Update account
-      </button>
-    </form>
+          <th>
+            Description
+          </th>
+
+          <th>
+            Diets
+          </th>
+
+          <th>
+            Restaurant
+          </th>
+
+          <th>
+          </th>
+        </tr>
+
+        <% @meals.each do |meal| %>
+        <tr>
+
+          <td>
+            <a href="/meals/<%= meal.id %>">
+              <%= meal.meal_name %>
+            </a>
+          </td>
+
+          <td>
+            <%= meal.description %>
+          </td>
+
+          <td>
+            <%= meal.diet.pluck(:diet_name).to_sentence %>
+          </td> 
+
+          <td>
+            <a href = "../restaurants/<%=meal.restaurant_id%>"><%= meal.restaurant.restaurant_name %></a>
+          </td>        
+
+          <td>
+            <%reaction = Reaction.where({:meal_id => meal.id}).where({:user_id => @current_user.id}).at(0)%>
+            <a href="/delete_reaction/<%= reaction.id %>" class="btn btn-block btn-outline-secondary">
+              Remove
+            </a>
+          <td>
+
+        </tr>
+        <% end %>
+      </table>
+    </div>
   </div>
-</div>
+  </td>
+
+<td valign="top">
+  <div>
+    <h5>
+      Edit User Account
+    </h5>
+
+    <div>
+      <form action="/modify_user" method="post">
+        <div>
+          <label for="email_box">Email</label>
+          <input id="email_box" name="query_email" value="<%= @current_user.email %>">
+        </div>
+        <div>
+          <label for="username_box">Username</label>
+          <input id="username_box" name="query_username" value="<%= @current_user.username %>">
+        </div>
+        <div>
+          <label for="first_name_box">First name</label>
+          <input id="first_name_box" name="query_first_name" value="<%= @current_user.first_name %>">
+        </div>
+        <div>
+          <label for="last_name_box">Last name</label>
+          <input id="last_name_box" name="query_last_name" value="<%= @current_user.last_name %>">
+        </div>
+
+        <div>
+          <label for="password_box">Password</label>
+          <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
+        </div>
+      
+        <div>
+          <label for="password_confirmation_box">Password Confirmation</label>
+          <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
+        </div>
+
+        <button>
+          Update account
+        </button>
+      </form>
+    </div>
+  </div>
+</td>

@@ -27,9 +27,10 @@ class Meal < ApplicationRecord
     return Reaction.where({:meal_id => self.id}).where({:reaction => "dislike"})
   end
 
-
+  mount_uploader :image, ImageUploader
   belongs_to :creator, :required => false, :class_name => "User"
   belongs_to :restaurant
   has_many :dietary_guidances, :dependent => :destroy
   has_many :reactions, :dependent => :destroy
+  has_many :diets, :through => :dietary_guidances
 end

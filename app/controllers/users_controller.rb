@@ -25,7 +25,10 @@ class UsersController < ApplicationController
     end
   end
     
-  def edit_registration_form
+  def user_profile
+    favs = Reaction.where({:user_id => @current_user.id}).where({:reaction => "like"})
+    @meals = Meal.where({:id => favs.pluck(:meal_id)})
+    
     render({ :template => "users/edit_profile.html.erb" })
   end
 

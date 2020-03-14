@@ -9,54 +9,42 @@
 
 <hr>
 
- <div>
-    <form action="/find_restaurant" method = "post">
-      <div>
-        <label for="diet_check">Select your dietary needs</label>
-        <div>
-          <%a=1%>
-          <%Diet.pluck(:diet_name).each do |diet|%>
-            <input id = "diet_check" type="checkbox" name="<%=diet%>" <%= "checked" if @diets.include?(diet) %> />
-            <%=diet%>
-            <%a=a+1%>
-          <%end%>
-        </div>
-      </div>
+<%= search_form_for @q do |f| %>
+  <p class="lead">Narrow results:</p>
 
-      <button>
-        Find restaurants
-      </button>
-    </form>
+  <div class="form-group">
+    <%= f.label :restaurant_name_cont, "Restaurant Name containing" %>
+    <%= f.text_field :restaurant_name_cont, :class => "form-control", :placeholder => "Enter a few characters" %>
   </div>
 
-  <hr>
-
-  <div>
-    <form action="/restaurants">
-      <button>
-        Reset list
-      </button>
-    </form>
+  <div class="form-group">
+    <%= f.label :address_cont, "Address" %>
+    <%= f.text_field :address_cont, :class => "form-control", :placeholder => "City, State" %>
   </div>
 
-<hr>
+  <div class="form-group">
+    <%= f.label :meals_meal_name_or_meals_description_cont, "Meal" %>
+    <%= f.text_field :meals_meal_name_or_meals_description_cont, :class => "form-control", :placeholder => "Meal" %>
+  </div>
 
-<div>
-<%if @diets != nil%>
-  Displaying restaurants that have meals that are <%=@diets.to_sentence%>
-<%else%>
-  Displaying all restaurants
-<%end%>
+  <div class="form-group">
+  <p> Diets <p>
+  <% Diet.all.each do |diet| %>
+    <label>
+      <%= check_box_tag('q[diets_id_eq_any][]', diet.id, (true if @q.diets_id_eq_any.try(:include?, diet.id))) %>
+      <%= diet.diet_name %>
+    </label>
+  <% end %>
 </div>
 
+  <%= f.submit :class => "btn btn-primary btn-block" %>
+  
+  <a href="/restaurants" class="btn btn-default btn-block">Clear filters</a>
+<% end %>
 
 
 
-
-
-
-
-
+<hr>
 
 <div class="row mb-3">
   <div class="col-md-12">

@@ -4,15 +4,15 @@ Rails.application.routes.draw do
   # Routes for the Reaction resource:
 
   # CREATE
-  post("/insert_reaction", { :controller => "reactions", :action => "create" })
-          
+  post("/insert_like", { :controller => "reactions", :action => "create_like" })
+  post("/insert_dislike", { :controller => "reactions", :action => "create_dislike" })
+
   # READ
   get("/reactions", { :controller => "reactions", :action => "index" })
   
   get("/reactions/:path_id", { :controller => "reactions", :action => "show" })
   
   # UPDATE
-  
   post("/modify_reaction/:path_id", { :controller => "reactions", :action => "update" })
   
   # DELETE
@@ -37,20 +37,9 @@ Rails.application.routes.draw do
 
   # Routes for the Diet resource:
 
-  # CREATE
-  post("/insert_diet", { :controller => "diets", :action => "create" })
-          
   # READ
   get("/diets", { :controller => "diets", :action => "index" })
   
-  
-  # UPDATE
-  
-  post("/modify_diet/:path_id", { :controller => "diets", :action => "update" })
-  
-  # DELETE
-  get("/delete_diet/:path_id", { :controller => "diets", :action => "destroy" })
-
   #------------------------------
 
   # Routes for the Meal resource:
@@ -63,7 +52,6 @@ Rails.application.routes.draw do
   # READ
   get("/meals", {:controller => "meals", :action => "index"})
   get("/meals/:meal_id", { :controller => "meals", :action => "show" })
-  post("/find_meal", {:controller => "meals", :action => "search"})
 
   
   # UPDATE
@@ -82,8 +70,8 @@ Rails.application.routes.draw do
   # READ
   get("/restaurants", { :controller => "restaurants", :action => "index" })
   get("/restaurants/:path_id", { :controller => "restaurants", :action => "show" })
-  post("/find_restaurant", {:controller => "restaurants", :action => "search"})
   post("/select_restaurant", {:controller => "restaurants", :action =>"select"})
+  get("/add_restaurant", {:controller => "restaurants", :action => "add"})
 
   # UPDATE
   post("/modify_restaurant/:path_id", { :controller => "restaurants", :action => "update" })
@@ -101,7 +89,7 @@ Rails.application.routes.draw do
   post("/insert_user", { :controller => "users", :action => "create"  })
       
   # EDIT PROFILE FORM        
-  get("/edit_user_profile", { :controller => "users", :action => "edit_registration_form" })       
+  get("/user_profile", { :controller => "users", :action => "user_profile" })       
   # UPDATE RECORD
   post("/modify_user", { :controller => "users", :action => "update" })
   

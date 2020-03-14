@@ -29,7 +29,7 @@
         </th>
 
         <th>
-          Image
+          Description
         </th>
 
         <th>
@@ -37,54 +37,45 @@
         </th>
 
         <th>
-          Description
-        </th>
-
-        <th>
-          Uploaded by
-        </th>
-
-        <th>
           Likes
         </th>
-
+        
         <th>
           Dislikes
         </th>
+
+        <th>
+        </th>
       </tr>
 
-      <% @restaurant.meal.each do |dish| %>
+      <% @restaurant.meals.each do |meal| %>
       <tr>
 
         <td>
-          <%= dish.meal_name %>
+          <a href="/meals/<%= meal.id %>">
+            <%= meal.meal_name %>
+          </a>
         </td>
 
         <td>
-          <%= dish.image %>
+          <%= meal.description %>
         </td>
 
         <td>
-          <%= dish.diet.pluck(:diet_name).to_sentence %>
+          <%= meal.diet.pluck(:diet_name).to_sentence %>
+        </td>        
+
+         <td>
+          <%= meal.likes.count %>
         </td>
 
         <td>
-          <%= dish.description %>
+          <%= meal.dislikes.count %>
         </td>
 
         <td>
-          <%= dish.creator.username %>
+
         </td>
-
-        <td>
-          <%= dish.reactions.where({:reaction => "like"}).count %>
-        </td>
-
-        <td>
-          <%= dish.reactions.where({:reaction => "dislike"}).count %>
-        </td>
-
-
       </tr>
       <% end %>
     </table>

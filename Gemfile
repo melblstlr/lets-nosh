@@ -17,7 +17,8 @@ gem 'sassc-rails'
 gem 'webpacker', '~> 4.0'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'ransack'
-
+gem "carrierwave"
+gem "cloudinary"
 
 
 group :development do

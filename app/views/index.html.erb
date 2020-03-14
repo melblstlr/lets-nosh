@@ -1,28 +1,52 @@
-<h1> Homepage </h1>
+<h1> Welcome to Nosh! </h1>
 
-  <div>
-    <form action="/find_restaurant" method = "post">
-      <div>
-        <label for="diet_check">Select your dietary needs</label>
-        <div>
-          <%a=1%>
-          <%Diet.pluck(:diet_name).each do |diet|%>
-            <input id = "diet_check" type="checkbox" name="<%=diet%>" />
-            <%=diet%>
-            <%a=a+1%>
-          <%end%>
-        </div>
-      </div>
+<p> If you're like many that have dietary restrictions and struggle to find good meals eating out, we welcome you to our community.
+Browse the meals that we have captured according to your dietary restrictions, and, feel free to add your own! The bigger the base,
+the more benefit we can bring. 
 
-      <button class="btn btn-block btn-outline-secondary">
-        Find restaurants
-      </button>
-    </form>
+
+<table class = "table">
+<td>
+
+<%= search_form_for @q do |f| %>
+  <p class="lead">Find your next meal:</p>
+
+  <div class="form-group">
+    <%= f.label :restaurant_name_cont, "Restaurant Name containing" %>
+    <%= f.text_field :restaurant_name_cont, :class => "form-control", :placeholder => "Enter a few characters" %>
   </div>
 
-<hr>
+  <div class="form-group">
+    <%= f.label :address_cont, "Address" %>
+    <%= f.text_field :address_cont, :class => "form-control", :placeholder => "City, State" %>
+  </div>
 
-  <p> Do you have a favorite meal you'd like to share? </p>
+  <div class="form-group">
+    <%= f.label :meals_meal_name_or_meals_description_cont, "Meal" %>
+    <%= f.text_field :meals_meal_name_or_meals_description_cont, :class => "form-control", :placeholder => "Meal" %>
+  </div>
+
+  <div class="form-group">
+  <p> Diets <p>
+  <% Diet.all.each do |diet| %>
+    <label>
+      <%= check_box_tag('q[diets_id_eq_any][]', diet.id, (true if @q.diets_id_eq_any.try(:include?, diet.id))) %>
+      <%= diet.diet_name %>
+    </label>
+  <% end %>
+</div>
+
+  <%= f.submit :class => "btn btn-primary btn-block" %>
+  
+  <a href="/restaurants" class="btn btn-default btn-block">Clear filters</a>
+<% end %>
+</td>
+
+
+
+<td valign = "top">
+
+  <p class = "lead"> Do you have a favorite meal you'd like to share? </p>
 
 
       <div class="col">
@@ -30,3 +54,5 @@
           Add your favorite meal
         </a>
       </div>
+</td>
+</table>
