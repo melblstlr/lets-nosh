@@ -1,4 +1,7 @@
 class DietsController < ApplicationController
+
+  skip_before_action(:force_user_sign_in, {:only =>[:index, :show]}) 
+
   def index
     @diets = Diet.all.order({ :diet_name => :desc })
 

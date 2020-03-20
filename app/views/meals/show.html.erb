@@ -18,14 +18,6 @@
       </div>
 
       <div class="form-group">
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="query_image" class="form-control" value="<%= @meal.image %>">
-      </div>
-
-      <div class="form-group">
         <label for="description_box">
           Description
         </label>
@@ -33,22 +25,30 @@
         <input type="text" id="description_box" name="query_description" class="form-control" value="<%= @meal.description %>">
       </div>
 
-      <div class="form-group">
-        <label for="restaurant_id_box">
-          Restaurant
-        </label>
-
-        <input type="text" id="restaurant_id_box" name="query_restaurant_id" class="form-control" value="<%= @meal.restaurant_id %>">
+      <div>
+        <label for="diet_check">Diets the meal follows</label>
+        <div>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=diet%>" <%= "checked" if @diets.include?(diet)%>>
+            <%=diet%>
+          <%end%>
+        </div>
       </div>
 
-        <input type="hidden" id="creator_id_box" name="query_creator_id" class="form-control" value="<%= @meal.creator_id %>">
-
+      
       <button class="btn btn-block btn-outline-secondary">
         Update meal
       </button>
     </form>
+    <td>
+      <a href="/delete_meal/<%=@meal.id %>" class="btn btn-block btn-outline-secondary">
+        Delete meal
+      </a>
+    <td>
   </div>
+
 </div>
+
 <%end%>
 
 
@@ -63,17 +63,17 @@
       </dd>
 
       <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @meal.image %>
-      </dd>
-
-      <dt>
         Description
       </dt>
       <dd>
         <%= @meal.description %>
+      </dd>
+
+      <dt>
+        Diets
+      </dt>
+      <dd>
+          <%= @meal.diet.pluck(:diet_name).to_sentence %>
       </dd>
 
       <dt>
@@ -85,27 +85,29 @@
       </dd>
 
       <dt>
-        Creator
-      </dt>
-      <dd>
-        <%= @meal.creator.username %>
-      </dd>
-
-      <dt>
         Likes
       </dt>
       <dd>
         <%= @meal.likes.count %>
       </dd>
-      
-    <form action="/insert_like"  method="post" >
-    
-      <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
 
-      <button class="btn btn-block btn-outline-secondary">
-        It was great!
-      </button>
-    </form>
+      <%this_reaction = Reaction.where({:user_id => @current_user.id}).where({:meal_id => @meal.id}).at(0)%>
+      <%if this_reaction == nil%>  
+        <form action="/insert_like"  method="post" >
+        
+          <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
+
+          <button class="btn btn-block btn-outline-secondary">
+            It was great! :)
+          </button>
+
+        </form>
+      <%elsif this_reaction.reaction == "dislike"%>
+      <%elsif this_reaction.reaction == "like"%>
+        <a href="/delete_reaction/<%= this_reaction.id %>" class="btn btn-block btn-outline-secondary">
+          Remove like
+        </a>
+      <%end%>
 
       <dt>
         Dislikes
@@ -113,15 +115,24 @@
       <dd>
         <%= @meal.dislikes.count%>
       </dd>
-      
-      <form action="/insert_dislike"  method="post" >
-    
-      <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
 
-      <button class="btn btn-block btn-outline-secondary">
-        Not a fan
-      </button>
-    </form>
+      <%if this_reaction == nil%>  
+        <form action="/insert_dislike"  method="post" >
+        
+          <input type="hidden" name="query_meal_id" value="<%= @meal.id %>">
+
+          <button class="btn btn-block btn-outline-secondary">
+            Not a fan :(
+          </button>
+        </form>
+      <%elsif this_reaction.reaction == "like"%>
+      <%elsif this_reaction.reaction == "dislike"%>
+        <a href="/delete_reaction/<%= this_reaction.id %>" class="btn btn-block btn-outline-secondary">
+          Remove dislike
+        </a>
+      <%end%>
+
+
 
     </dl>
   </div>

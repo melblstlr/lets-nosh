@@ -88,8 +88,13 @@ Rails.application.routes.draw do
   # CREATE RECORD
   post("/insert_user", { :controller => "users", :action => "create"  })
       
-  # EDIT PROFILE FORM        
-  get("/user_profile", { :controller => "users", :action => "user_profile" })       
+  # User profile     
+  get("/user_profile", { :controller => "users", :action => "user_profile" })    
+  get("/user_favorites", {:controller => "users", :action => "favorite"})
+  get("/user_meals", {:controller => "users", :action => "meal"})
+  
+
+
   # UPDATE RECORD
   post("/modify_user", { :controller => "users", :action => "update" })
   

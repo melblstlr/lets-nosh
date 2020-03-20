@@ -1,3 +1,10 @@
+<div class="col">
+  <a href="/add_meal" class="btn btn-block btn-outline-secondary">
+    Add your favorite meal
+  </a>
+</div>
+
+
 <div class="row mb-3">
   <div class="col-md-12">
     <h1>
@@ -6,8 +13,9 @@
   </div>
 </div>
 
+
 <%= search_form_for @q do |f| %>
-  <p class="lead">Narrow results:</p>
+  <p class="lead">Find your next meal:</p>
 
   <div class="form-group">
     <%= f.label :meal_name_or_description_cont, "What sounds good?" %>

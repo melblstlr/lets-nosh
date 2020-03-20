@@ -1,0 +1,85 @@
+<table class = "table">
+
+<td valign="top">
+  <div class="col">
+    <a href="/user_profile" class="btn btn-block btn-outline-secondary">
+      Edit Profile
+    </a>
+  </div>
+  <div class="col">
+    <a href="/user_favorites" class="btn btn-block btn-outline-secondary">
+      Your favorites
+    </a>
+  </div>
+  <div class="col">
+    <a href="/user_meals" class="btn btn-block btn-outline-secondary">
+      Your meals
+    </a>
+  </div>  
+</td>
+
+<td>
+  <h5>
+    Meals Added by You
+  </h5>
+
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <table class="table">
+        <tr>
+
+          <th>
+            Meal name
+          </th>
+
+          <th>
+            Description
+          </th>
+
+          <th>
+            Diets
+          </th>
+
+          <th>
+            Restaurant
+          </th>
+
+          <th>
+          </th>
+        </tr>
+
+        <% @meals.each do |meal| %>
+        <tr>
+
+          <td>
+            <a href="/meals/<%= meal.id %>">
+              <%= meal.meal_name %>
+            </a>
+          </td>
+
+          <td>
+            <%= meal.description %>
+          </td>
+
+          <td>
+            <%= meal.diet.pluck(:diet_name).to_sentence %>
+          </td> 
+
+          <td>
+            <a href = "../restaurants/<%=meal.restaurant_id%>"></a>
+          </td>        
+
+          <td>
+            <a href="/delete_meal/<%=meal.id %>" class="btn btn-block btn-outline-secondary">
+              Delete meal
+            </a>
+          <td>
+
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  </td>
+
+</td>

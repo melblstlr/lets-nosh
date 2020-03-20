@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
-  
+ 
+  skip_before_action(:force_user_sign_in, {:only =>[:index, :show]}) 
+
   def index
       @q = Restaurant.ransack(params[:q])
       @restaurants = @q.result(:distinct => true).includes(:meals, :dietary_guidances, :diets)

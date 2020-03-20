@@ -20,9 +20,9 @@ class ReactionsController < ApplicationController
 
     if @reaction.valid?
       @reaction.save
-      redirect_to("//meals/#{@reaction.meal_id}", { :notice => "Reaction created successfully." })
+      redirect_to("/meals/#{@reaction.meal_id}")
     else
-      redirect_to("//meals/#{@reaction.meal_id}", { :notice => "Reaction failed to create successfully." })
+      redirect_to("/meals/#{@reaction.meal_id}", { :notice => "Reaction failed to create successfully." })
     end
   end
 
@@ -34,7 +34,7 @@ class ReactionsController < ApplicationController
 
     if @reaction.valid?
       @reaction.save
-      redirect_to("/meals/#{@reaction.meal_id}", { :notice => "Reaction created successfully." })
+      redirect_to("/meals/#{@reaction.meal_id}")
     else
       redirect_to("/meals/#{@reaction.meal_id}", { :notice => "Reaction failed to create successfully." })
     end
@@ -62,6 +62,6 @@ class ReactionsController < ApplicationController
 
     @reaction.destroy
 
-    redirect_to("/user_profile", { :notice => "Reaction deleted successfully."} )
+    redirect_to(request.referrer)
   end
 end

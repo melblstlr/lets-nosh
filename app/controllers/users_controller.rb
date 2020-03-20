@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # skip_before_action(:force_user_sign_in, { :only => [:new_registration_form, :create] })
+  skip_before_action(:force_user_sign_in, {:only => [:new_registration_form, :create] })
   
   def new_registration_form
     render({ :template => "user_sessions/sign_up.html.erb" })
@@ -30,6 +30,19 @@ class UsersController < ApplicationController
     @meals = Meal.where({:id => favs.pluck(:meal_id)})
     
     render({ :template => "users/edit_profile.html.erb" })
+  end
+
+  def favorite
+    favs = Reaction.where({:user_id => @current_user.id}).where({:reaction => "like"})
+    @meals = Meal.where({:id => favs.pluck(:meal_id)})
+    
+    render({ :template => "users/user_favorites.html.erb" })
+  end
+
+  def meal
+    @meals = Meal.where({:creator_id => @current_user.id})
+    
+    render({ :template => "users/user_meals.html.erb" })
   end
 
   def update

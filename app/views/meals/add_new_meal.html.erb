@@ -60,13 +60,6 @@
         <input type="text" id="meal_name_box" name="query_meal_name" class="form-control">
       </div>
 
-      <div class="form-group">
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="file" id="image_box" name="query_image" class="form-control">
-      </div>
 
       <div class="form-group">
         <label for="description_box">
@@ -74,6 +67,16 @@
         </label>
 
         <input type="text" id="description_box" name="query_description" class="form-control">
+      </div>
+
+      <div>
+        <label for="diet_check">Diets the meal follows</label>
+        <div>
+          <%Diet.pluck(:diet_name).each do |diet|%>
+            <input id = "diet_check" type="checkbox" name="<%=diet%>">
+            <%=diet%>
+          <%end%>
+        </div>
       </div>
 
         <input type= "hidden" name = "query_restaurant_id" value = "<%=@restaurant.id%>">
